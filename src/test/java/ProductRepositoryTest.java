@@ -1,9 +1,6 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ru.netology.Book;
-import ru.netology.Product;
-import ru.netology.ProductRepository;
-import ru.netology.Smartphone;
+import ru.netology.*;
 
 public class ProductRepositoryTest {
     Product item1 = new Book(1, "Преступление и наказание", 350, "Достоевский");
@@ -49,5 +46,22 @@ public class ProductRepositoryTest {
         Product[] actual = repo.findAll();
 
         Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldGiveErrorRemoveById() {
+        ProductRepository repo = new ProductRepository();
+
+        repo.save(item1);
+        repo.save(item2);
+        repo.save(item3);
+        repo.save(item4);
+        repo.save(item5);
+        repo.save(item6);
+        repo.save(item7);
+
+        Assertions.assertThrows(NotFoundException.class, () -> {
+            repo.removeById(15);
+        });
     }
 }
